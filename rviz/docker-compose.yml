@@ -1,0 +1,38 @@
+version: '2'
+services:
+  roscore:
+    image: myrobot:latest
+    environment:
+      WAIT_FOR_ROSCORE: 0
+      #ROS_IP: $ROS_IP
+      #ROS_MASTER_URI: $ROS_MASTER_URI
+    stdin_open: true
+    network_mode: host
+    restart: "unless-stopped"
+    #volumes:
+    #- $HOME/catkin_ws:/root/catkin_ws
+    tty: true
+    command: roscore
+    labels:
+      io.rancher.container.pull_image: never
+      #io.rancher.scheduler.affinity:host_label: hostname=marvin
+
+  rviz:
+    image: myrobot:latest
+    environment:
+      #ROS_IP: $ROS_IP
+      #ROS_MASTER_URI: $ROS_MASTER_URI
+      DISPLAY: :0
+      QT_X11_NO_MITSHM: '1'
+    stdin_open: true
+    network_mode: host
+    volumes:
+    - /tmp/.X11-unix:/tmp/.X11-unix
+    - $HOME/.Xauthority:/root/.Xauthority
+    privileged: true
+    tty: true
+    command: rosrun rviz rviz
+    labels:
+      io.rancher.container.pull_image: "never"
+      io.rancher.container.start_once: "true"
+      #io.rancher.scheduler.affinity:host_label: "hostname=marvin"

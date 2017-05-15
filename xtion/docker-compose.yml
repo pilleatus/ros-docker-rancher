@@ -1,0 +1,18 @@
+version: '2'
+services:
+  xtion:
+    image: myrobot:latest
+    environment:
+      ROS_IP: $ROS_IP
+      ROS_MASTER_URI: $ROS_MASTER_URI
+    stdin_open: true
+    network_mode: host
+    restart: "unless-stopped"
+    volumes:
+    - /dev/bus/usb:/dev/bus/usb
+    tty: true
+    privileged: true
+    command:  roslaunch openni2_launch openni2.launch
+    labels:
+      io.rancher.container.pull_image: never
+      #io.rancher.scheduler.affinity:host_label: hostname=marvin
