@@ -15,7 +15,7 @@ services:
     command: roscore
     labels:
       io.rancher.container.pull_image: never
-      #io.rancher.scheduler.affinity:host_label: hostname=marvin
+      #io.rancher.scheduler.affinity:host_label: hostname=myrobot-main-pc
 
   rviz:
     image: myrobot:latest
@@ -35,4 +35,4 @@ services:
     labels:
       io.rancher.container.pull_image: "never"
       io.rancher.container.start_once: "true"
-      #io.rancher.scheduler.affinity:host_label: "hostname=marvin"
+      #io.rancher.scheduler.affinity:host_label: "hostname=myrobot-main-pc"
