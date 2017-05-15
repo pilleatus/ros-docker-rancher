@@ -8,7 +8,7 @@ services:
     stdin_open: true
     network_mode: host
     restart: "unless-stopped"
-    volumes:
+    devices:
     - /dev/bus/usb:/dev/bus/usb
     tty: true
     privileged: true

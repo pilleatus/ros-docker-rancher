@@ -39,6 +39,7 @@ RUN apt-get clean && \
 
 #install some ROS Packages
 RUN apt-get update && apt-get -y install \
+    ros-$ROS_DISTRO-rviz \
     ros-$ROS_DISTRO-mongodb-store \
     ros-$ROS_DISTRO-openni2-launch
 
