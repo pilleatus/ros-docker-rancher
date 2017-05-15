@@ -5,14 +5,17 @@ ENV DEBIAN_FRONTEND noninteractive
 #default behaviour to avoid roscore-race-conditions when using ROS launch files
 ENV WAIT_FOR_ROSCORE 1
 
-#whit this flag it is possible to wait for a ROS parameter from DB
-#https://github.com/strands-project/mongodb_store
+# With the following flag it is possible to wait for a ROS parameter from DB,
+# therefor the ROS-Node 'config-manager' (https://github.com/strands-project/mongodb_store)
+# must be running. The evaluation of this parameter is done in ros_entrypoint.sh
 ENV WAIT_FOR_CONFIG_MANAGER 0
 
 #use bash shell
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
-#get rid of 1394 error message
+# get rid of error message:
+# libdc1394 error: Failed to initialize libdc1394
+# http://stackoverflow.com/questions/12689304/ctypes-error-libdc1394-error-failed-to-initialize-libdc1394
 RUN sudo ln /dev/null /dev/raw1394
 
 RUN apt-get update && apt-get -y install wget && \
